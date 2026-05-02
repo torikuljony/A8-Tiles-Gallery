@@ -4,7 +4,7 @@ export default function AuthPages() {
   return (
     <div className="min-h-screen bg-[#F9F6E5] flex flex-col items-center justify-center gap-10 py-10 px-4">
       
-      {/* --- SIGN IN FORM --- */}
+      {/* - SIGN IN FORM -- */}
       <div className="w-full max-w-[450px] bg-white p-10 rounded-[32px] shadow-sm">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-medium text-[#1A1A1A]">Sign In</h1>

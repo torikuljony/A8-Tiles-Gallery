@@ -3,7 +3,6 @@ import Link from "next/link";
 export default function TileCard({ tile }) {
   return (
     <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all border border-gray-100 flex flex-col h-full">
-      {/* Card Image Section */}
       <div className="aspect-square w-full overflow-hidden">
         <img
           src={tile.image}
@@ -12,7 +11,7 @@ export default function TileCard({ tile }) {
         />
       </div>
 
-      {/* Content Section */}
+      
       <div className="p-5 flex flex-col flex-grow">
         <span className="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-1">
           {tile.category || "Stone"} 
