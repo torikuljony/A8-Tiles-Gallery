@@ -1,6 +1,6 @@
 export default function Banner() {
   return (
-    <section className="bg-[#F9F6E5] min-h-[500px] flex items-center px-8 py-12 md:px-20">
+    <section className="bg-[#F9F6E5] min-h-125 flex items-center px-8 py-12 md:px-20">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         
         
