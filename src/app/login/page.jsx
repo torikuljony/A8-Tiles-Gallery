@@ -16,7 +16,7 @@ export default function AuthPages() {
             <label className="block text-[10px] font-bold uppercase tracking-widest text-[#6B6B6B] mb-2">Email Address</label>
             <input
               type="email"
-              placeholder="architect@studio.com"
+              placeholder="hdfy@gmail.com"
               className="w-full px-4 py-3 bg-[#F2F4E6]/50 border border-[#E0E2D1] rounded-xl text-sm outline-none focus:border-[#A0452D]"
             />
           </div>
@@ -62,7 +62,7 @@ export default function AuthPages() {
             <label className="block text-[10px] font-bold uppercase tracking-widest text-[#6B6B6B] mb-2">Full Name</label>
             <input
               type="text"
-              placeholder="Julianne Moore"
+              placeholder="Torikul"
               className="w-full px-4 py-3 bg-[#F2F4E6]/50 border border-[#E0E2D1] rounded-xl text-sm outline-none focus:border-[#A0452D]"
             />
           </div>
@@ -71,7 +71,7 @@ export default function AuthPages() {
             <label className="block text-[10px] font-bold uppercase tracking-widest text-[#6B6B6B] mb-2">Email Address</label>
             <input
               type="email"
-              placeholder="design@gallery.com"
+              placeholder="hdfy@gmail.com"
               className="w-full px-4 py-3 bg-[#F2F4E6]/50 border border-[#E0E2D1] rounded-xl text-sm outline-none focus:border-[#A0452D]"
             />
           </div>
