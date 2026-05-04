@@ -7,10 +7,10 @@ import dns from "dns";
 dns.setDefaultResultOrder("ipv4first");
 
 
-// 👉 Mongo Client
+//  Mongo Client
 const client = new MongoClient(DB_URL);
 
-// 👉 Safe DB connection
+//  Safe DB connection
 await client.connect();
 
 const db = client.db();

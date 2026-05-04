@@ -87,7 +87,7 @@ export default function ProfilePage() {
 
         <div className="flex flex-col md:flex-row gap-8">
 
-          {/* ================= LEFT ================= */}
+         
           <div className="flex flex-col items-center md:w-1/3">
 
             <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-red-200 shadow mb-4 bg-gray-100 flex items-center justify-center">
@@ -106,7 +106,6 @@ export default function ProfilePage() {
 
             </div>
 
-            {/* NAME EDIT */}
             {editing ? (
               <input
                 className="border p-2 rounded text-center"
@@ -125,7 +124,7 @@ export default function ProfilePage() {
               {user.email}
             </p>
 
-            {/* BUTTONS */}
+          
             {editing ? (
               <div className="flex gap-2">
                 <button
@@ -153,7 +152,7 @@ export default function ProfilePage() {
 
           </div>
 
-          {/* ================= RIGHT ================= */}
+          
           <div className="md:w-2/3 space-y-4">
 
             <div className="flex justify-between border p-3 rounded-md">
