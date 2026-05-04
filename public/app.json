@@ -1,0 +1,74 @@
+[
+  {
+    "id": "tile_001",
+    "title": "Ceramic Blue Tile",
+    "description": "Premium ceramic tile with blue glaze finish",
+    "image": "/images/tiles/tile_001.jpg",
+    "category": "ceramic",
+    "price": 45.99,
+    "currency": "USD",
+    "dimensions": "60x60 cm",
+    "material": "Ceramic",
+    "inStock": true
+  },
+  {
+    "id": "tile_002",
+    "title": "Marble White Tile",
+    "description": "Elegant white marble tile with smooth texture",
+    "image": "/images/tiles/tile_002.jpg",
+    "category": "marble",
+    "price": 65.50,
+    "currency": "USD",
+    "dimensions": "80x80 cm",
+    "material": "Marble",
+    "inStock": true
+  },
+  {
+    "id": "tile_003",
+    "title": "Granite Black Tile",
+    "description": "Durable granite tile with polished black finish",
+    "image": "/images/tiles/tile_003.jpg",
+    "category": "granite",
+    "price": 70.00,
+    "currency": "USD",
+    "dimensions": "60x60 cm",
+    "material": "Granite",
+    "inStock": false
+  },
+  {
+    "id": "tile_004",
+    "title": "Wooden Texture Tile",
+    "description": "Wood-like tile for natural interior design",
+    "image": "/images/tiles/tile_004.jpg",
+    "category": "wood",
+    "price": 55.25,
+    "currency": "USD",
+    "dimensions": "120x20 cm",
+    "material": "Porcelain",
+    "inStock": true
+  },
+  {
+    "id": "tile_005",
+    "title": "Glossy Floor Tile",
+    "description": "High gloss tile perfect for modern floors",
+    "image": "/images/tiles/tile_005.jpg",
+    "category": "floor",
+    "price": 48.75,
+    "currency": "USD",
+    "dimensions": "60x60 cm",
+    "material": "Ceramic",
+    "inStock": true
+  },
+  {
+    "id": "tile_006",
+    "title": "Outdoor Stone Tile",
+    "description": "Rough texture tile suitable for outdoor use",
+    "image": "/images/tiles/tile_006.jpg",
+    "category": "outdoor",
+    "price": 52.30,
+    "currency": "USD",
+    "dimensions": "40x40 cm",
+    "material": "Stone",
+    "inStock": false
+  }
+]

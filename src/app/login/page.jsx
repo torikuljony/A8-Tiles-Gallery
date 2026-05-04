@@ -1,117 +1,214 @@
-import React from 'react';
+"use client";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 export default function AuthPages() {
+  const router = useRouter();
+
+  // ================= LOGIN STATE =================
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: ""
+  });
+
+  // ================= REGISTER STATE =================
+  const [registerData, setRegisterData] = useState({
+    name: "",
+    email: "",
+    photo: "",
+    password: ""
+  });
+
+  // ================= INPUT HANDLERS =================
+  const handleLoginChange = (e) => {
+    setLoginData({
+      ...loginData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleRegisterChange = (e) => {
+    setRegisterData({
+      ...registerData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  // ================= EMAIL LOGIN =================
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+
+    const res = await authClient.signIn.email({
+      email: loginData.email,
+      password: loginData.password,
+      rememberMe: true,
+    });
+
+    if (res.error) {
+      console.log("❌ LOGIN ERROR:", res.error);
+      return;
+    }
+
+    console.log("✅ LOGIN SUCCESS:", res.data);
+    router.push("/");
+  };
+
+  // ================= EMAIL REGISTER =================
+  const handleRegisterSubmit = async (e) => {
+    e.preventDefault();
+
+    const res = await authClient.signUp.email({
+      name: registerData.name,
+      email: registerData.email,
+      password: registerData.password,
+      image: registerData.photo,
+    });
+
+    if (res.error) {
+      console.log("❌ REGISTER ERROR:", res.error);
+      return;
+    }
+
+    console.log("✅ REGISTER SUCCESS:", res.data);
+    router.push("/");
+  };
+
+  // ================= GOOGLE LOGIN (FIXED) =================
+  const handleGoogleLogin = async () => {
+    try {
+      const res = await authClient.signIn.social({
+        provider: "google",
+      });
+
+      if (res.error) {
+        console.log("❌ GOOGLE LOGIN ERROR:", res.error);
+        return;
+      }
+
+      console.log("✅ GOOGLE LOGIN SUCCESS:", res.data);
+
+      router.push("/");
+    } catch (err) {
+      console.log("❌ GOOGLE LOGIN FAILED:", err);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#F9F6E5] flex flex-col items-center justify-center gap-10 py-10 px-4">
-      
-      {/* - SIGN IN FORM -- */}
-      <div className="w-full max-w-[450px] bg-white p-10 rounded-[32px] shadow-sm">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-medium text-[#1A1A1A]">Sign In</h1>
-          <p className="text-[#6B6B6B] text-sm mt-3">Access your collection of exquisite textures.</p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-[#F9F6E5] to-[#F2E9D8] flex flex-col items-center justify-center gap-10 py-10 px-4">
 
-        <form className="space-y-6">
-          <div>
-            <label className="block text-[10px] font-bold uppercase tracking-widest text-[#6B6B6B] mb-2">Email Address</label>
-            <input
-              type="email"
-              placeholder="hdfy@gmail.com"
-              className="w-full px-4 py-3 bg-[#F2F4E6]/50 border border-[#E0E2D1] rounded-xl text-sm outline-none focus:border-[#A0452D]"
-            />
-          </div>
+      {/* ================= LOGIN CARD ================= */}
+      <div className="w-full max-w-[450px] bg-white p-10 rounded-3xl shadow-lg">
 
-          <div>
-            <label className="block text-[10px] font-bold uppercase tracking-widest text-[#6B6B6B] mb-2">Password</label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              className="w-full px-4 py-3 bg-[#F2F4E6]/50 border border-[#E0E2D1] rounded-xl text-sm outline-none focus:border-[#A0452D]"
-            />
-          </div>
+        <h1 className="text-3xl font-semibold text-center mb-6">Sign In</h1>
 
-          <button className="w-full bg-[#A0452D] hover:bg-[#8B3A26] text-white py-4 rounded-xl font-medium text-sm transition-all shadow-md">
+        <form onSubmit={handleLoginSubmit} className="space-y-4">
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={loginData.email}
+            onChange={handleLoginChange}
+            className="w-full p-3 border rounded-xl outline-none focus:border-[#A0452D]"
+          />
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={loginData.password}
+            onChange={handleLoginChange}
+            className="w-full p-3 border rounded-xl outline-none focus:border-[#A0452D]"
+          />
+
+          <button className="w-full bg-[#A0452D] text-white py-3 rounded-xl hover:bg-[#8B3A26] transition">
             Login
           </button>
+
         </form>
 
-        <div className="relative flex items-center my-8">
-          <div className="flex-grow border-t border-[#E0E2D1]"></div>
-          <span className="flex-shrink mx-4 text-[10px] font-bold uppercase tracking-[2px] text-[#A3A3A3]">Or continue with</span>
-          <div className="flex-grow border-t border-[#E0E2D1]"></div>
+        {/* GOOGLE LOGIN */}
+        <div className="my-6 flex items-center gap-3">
+          <div className="flex-1 h-[1px] bg-gray-300"></div>
+          <p className="text-xs text-gray-500">OR</p>
+          <div className="flex-1 h-[1px] bg-gray-300"></div>
         </div>
 
-        <button className="w-full border-2 border-[#E0E2D1] py-3 rounded-xl text-sm font-semibold text-[#1A1A1A] flex items-center justify-center gap-2 transition-all hover:bg-gray-50">
-          <span className="tracking-[3px] font-light">GOOGLE</span> <span className="font-bold text-lg">Google</span>
+        <button
+          onClick={handleGoogleLogin}
+          className="w-full flex items-center justify-center gap-3 border py-3 rounded-xl hover:bg-gray-50 transition"
+        >
+          <img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            className="w-5 h-5"
+          />
+          <span className="font-medium">Continue with Google</span>
         </button>
 
-        <p className="text-sm text-center mt-8 text-[#6B6B6B]">
-          Don't have an account? <span className="text-[#A0452D] font-bold cursor-pointer hover:underline">Register</span>
-        </p>
       </div>
 
-      {/* --- CREATE ACCOUNT FORM --- */}
-      <div className="w-full max-w-[450px] bg-white p-10 rounded-[32px] shadow-sm">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-medium text-[#1A1A1A]">Create Account</h1>
-          <p className="text-[#6B6B6B] text-sm mt-3">Join our gallery of premium surface designs.</p>
-        </div>
+      {/* ================= REGISTER CARD ================= */}
+      <div className="w-full max-w-[450px] bg-white p-10 rounded-3xl shadow-lg">
 
-        <form className="space-y-6">
-          <div>
-            <label className="block text-[10px] font-bold uppercase tracking-widest text-[#6B6B6B] mb-2">Full Name</label>
-            <input
-              type="text"
-              placeholder="Torikul"
-              className="w-full px-4 py-3 bg-[#F2F4E6]/50 border border-[#E0E2D1] rounded-xl text-sm outline-none focus:border-[#A0452D]"
-            />
-          </div>
+        <h1 className="text-3xl font-semibold text-center mb-6">Create Account</h1>
 
-          <div>
-            <label className="block text-[10px] font-bold uppercase tracking-widest text-[#6B6B6B] mb-2">Email Address</label>
-            <input
-              type="email"
-              placeholder="hdfy@gmail.com"
-              className="w-full px-4 py-3 bg-[#F2F4E6]/50 border border-[#E0E2D1] rounded-xl text-sm outline-none focus:border-[#A0452D]"
-            />
-          </div>
+        <form onSubmit={handleRegisterSubmit} className="space-y-4">
 
-          <div>
-            <label className="block text-[10px] font-bold uppercase tracking-widest text-[#6B6B6B] mb-2">Photo URL</label>
-            <input
-              type="text"
-              placeholder="https://image-link.com/profile.jpg"
-              className="w-full px-4 py-3 bg-[#F2F4E6]/50 border border-[#E0E2D1] rounded-xl text-sm outline-none focus:border-[#A0452D]"
-            />
-          </div>
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            value={registerData.name}
+            onChange={handleRegisterChange}
+            className="w-full p-3 border rounded-xl outline-none"
+          />
 
-          <div>
-            <label className="block text-[10px] font-bold uppercase tracking-widest text-[#6B6B6B] mb-2">Password</label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              className="w-full px-4 py-3 bg-[#F2F4E6]/50 border border-[#E0E2D1] rounded-xl text-sm outline-none focus:border-[#A0452D]"
-            />
-          </div>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={registerData.email}
+            onChange={handleRegisterChange}
+            className="w-full p-3 border rounded-xl outline-none"
+          />
 
-          <button className="w-full bg-[#A0452D] hover:bg-[#8B3A26] text-white py-4 rounded-xl font-medium text-sm transition-all shadow-md">
+          <input
+            type="text"
+            name="photo"
+            placeholder="Photo URL"
+            value={registerData.photo}
+            onChange={handleRegisterChange}
+            className="w-full p-3 border rounded-xl outline-none"
+          />
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={registerData.password}
+            onChange={handleRegisterChange}
+            className="w-full p-3 border rounded-xl outline-none"
+          />
+
+          <button className="w-full bg-[#A0452D] text-white py-3 rounded-xl hover:bg-[#8B3A26] transition">
             Register
           </button>
+
         </form>
 
-        <div className="relative flex items-center my-8">
-          <div className="flex-grow border-t border-[#E0E2D1]"></div>
-          <span className="flex-shrink mx-4 text-[10px] font-bold uppercase tracking-[2px] text-[#A3A3A3]">Or join with</span>
-          <div className="flex-grow border-t border-[#E0E2D1]"></div>
-        </div>
-
-        <button className="w-full border-2 border-[#E0E2D1] py-3 rounded-xl text-sm font-semibold text-[#1A1A1A] flex items-center justify-center gap-2 transition-all hover:bg-gray-50">
-          <span className="tracking-[3px] font-light">GOOGLE</span> <span className="font-bold text-lg">Google</span>
+        {/* GOOGLE REGISTER */}
+        <button
+          onClick={handleGoogleLogin}
+          className="w-full mt-6 flex items-center justify-center gap-3 border py-3 rounded-xl hover:bg-gray-50 transition"
+        >
+          <img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            className="w-5 h-5"
+          />
+          <span className="font-medium">Sign up with Google</span>
         </button>
 
-        <p className="text-sm text-center mt-8 text-[#6B6B6B]">
-          Already a member? <span className="text-[#A0452D] font-bold cursor-pointer hover:underline">Login</span>
-        </p>
       </div>
 
     </div>
